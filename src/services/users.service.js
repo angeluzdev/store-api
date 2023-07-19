@@ -16,7 +16,7 @@ class User {
   async getUserByEmail(email) {
     const [user] = await pool.query('select * from users where email=?', email);
     if(user.length==0) throw boom.notFound('Email inexistente');
-    return user;
+    return user[0];
   }
 
   async createNewUser(data) {

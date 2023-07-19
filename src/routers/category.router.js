@@ -1,5 +1,6 @@
 const express = require('express');
 const Category = require('./../services/category.service');
+const passport = require('passport');
 const service = new Category();
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', passport.authenticate('jwt', {session: false}),async (req, res, next) => {
   try {
     const message = await service.setCategory(req.body);
     res.json(message);

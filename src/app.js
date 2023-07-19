@@ -6,6 +6,8 @@ const routers = require('./routers');
 //settings
 app.set('port', 3000);
 app.use(express.json());
+require('./auth');
+
 
 //routing
 routers(app);
