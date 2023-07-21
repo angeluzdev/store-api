@@ -1,5 +1,6 @@
 const express = require('express');
 const Review = require('../services/review.service');
+const { isAuthenticate } = require('../middlewares/auth.handler');
 const service = new Review();
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.get('/:id', async (req,res,next) => {
   }
 })
 
-router.post('/add', async (req,res,next) => {
+router.post('/add', isAuthenticate, async (req,res,next) => {
   try {
     const message = await service.setNewReview(req.body);
     res.json(message);
@@ -22,7 +23,7 @@ router.post('/add', async (req,res,next) => {
   }
 })
 
-router.delete('/delete/:id', async (req,res,next) => {
+router.delete('/delete/:id', isAuthenticate, async (req,res,next) => {
   try {
     const {id} = req.params;
     const message = await service.deleteReview(id);

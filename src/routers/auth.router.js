@@ -8,6 +8,7 @@ router.post('/signin', passport.authenticate('local.signin', {session: false}), 
   try {
     const user = req.user;
     const token = await service.setToken(user);
+    res.cookie('token_jwt', token.token);
     res.json(token);
   } catch (error) {
     next(error);
