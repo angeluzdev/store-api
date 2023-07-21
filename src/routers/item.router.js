@@ -1,5 +1,7 @@
 const express = require('express');
 const Product = require('../services/item.service');
+const { idSchema, postSchema, updateSchema, titleSchema, rangeSchema } = require('../schemas/product.schema');
+const validateData = require('../middlewares/data.handler');
 const service = new Product();
 const router = express.Router();
 
@@ -20,7 +22,7 @@ router.get('/', async (req,res, next) => {
   }
 })
 
-router.get('/:id', async (req,res,next) => {
+router.get('/:id', validateData('params', idSchema), async (req,res,next) => {
   try {
     const {id} = req.params;
     const product = await service.getSingleProduct(id);
@@ -30,7 +32,7 @@ router.get('/:id', async (req,res,next) => {
   }
 })
 
-router.get('/title/:t', async (req,res, next) => {
+router.get('/title/:t', validateData('params', titleSchema), async (req,res, next) => {
   try {
     const {t} = req.params;
     const products = await service.getProductsByTitle(t);
@@ -40,7 +42,7 @@ router.get('/title/:t', async (req,res, next) => {
   }
 })
 
-router.get('/range/:min/:max', async (req, res, next) => {
+router.get('/range/:min/:max', validateData('params', rangeSchema), async (req, res, next) => {
   try {
     const {min, max} = req.params;
     const products = await service.getProductsByPriceRange(min,max);
@@ -50,7 +52,7 @@ router.get('/range/:min/:max', async (req, res, next) => {
   }
 })
 
-router.get('/category/:id', async (req,res,next) => {
+router.get('/category/:id', validateData('params', idSchema), async (req,res,next) => {
   try {
     const {id} = req.params;
     const products = await service.getProductByCategoryId(id);
@@ -60,7 +62,7 @@ router.get('/category/:id', async (req,res,next) => {
   }
 })
 
-router.post('/', async (req,res, next) => {
+router.post('/', validateData('body', postSchema), async (req,res, next) => {
   try {
     const message = await service.setProduct(req.body);
     res.json(message);
@@ -69,7 +71,7 @@ router.post('/', async (req,res, next) => {
   }
 })
 
-router.put('/update/:id', async (req,res, next) => {
+router.put('/update/:id', validateData('body', updateSchema), async (req,res, next) => {
   try {
     const {id} = req.params
     const message = await service.updateProducts(req.body, id);
@@ -79,7 +81,7 @@ router.put('/update/:id', async (req,res, next) => {
   }
 })
 
-router.delete('/delete/:id', async (req,res, next) => {
+router.delete('/delete/:id', validateData('params', idSchema), async (req,res, next) => {
   try {
     const {id} = req.params;
     const message = await service.getProducts(id);

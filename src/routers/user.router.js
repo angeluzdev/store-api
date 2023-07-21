@@ -22,14 +22,6 @@ router.get('/:id', async (req,res,next) => {
   }
 })
 
-router.post('/', async (req,res,next) => {
-  try {
-    const message = await service.createNewUser(req.body);
-    res.json(message);
-  } catch (error) {
-    next(error);
-  }
-})
 
 router.delete('/delete/:id', async (req,res,next) => {
   try {
