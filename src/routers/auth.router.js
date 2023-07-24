@@ -27,4 +27,25 @@ router.post('/signup', validateData('body', signUpSchema), passport.authenticate
   }
 })
 
+router.post('/recovery', async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const message = await service.sendRecoveryPassword(email);
+    res.json(message);
+  } catch (error) {
+    next(error);
+  }
+})
+
+router.get('/change-password', async (req, res, next) => {
+  try {
+    const { token } = req.query;
+    const { newPassword } = req.body
+    const message = await service.changePassword(token, newPassword);
+    res.json(message);
+  } catch (error) {
+    next(error);
+  }
+}) 
+
 module.exports = router;
