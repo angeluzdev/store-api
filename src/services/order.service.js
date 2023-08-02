@@ -14,7 +14,12 @@ class Order {
   }
 
   async getOrderByUserId(userId) {
-    const [orders] = await pool.query('select * from sale_order so inner join sale_products sp on(so.id=sp.order_id) where so.user_id=?', [userId]);
+    const [orders] = await pool.query('select * from sale_order where user_id=?', [userId]);
+    for(let i=0; i<orders.length; i++) {
+      const [products] = await pool.query('select sp.qty, sp.product_id, p.title, p.price from sale_order so inner join sale_products sp on(so.id=sp.order_id) inner join products p on(sp.product_id=p.id) where sp.order_id=?', [orders[i].id]);
+      orders[i].products = products;
+    }
+
     return orders
   }
 }
