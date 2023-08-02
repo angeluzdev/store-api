@@ -21,6 +21,10 @@ app.use( (req, res, next) => passport.authenticate('jwt', {session: false}, (err
   next();
 })(req,res,next));
 
+app.get('/', (req, res) => {
+  res.send('Hola desde internet');
+})
+
 //routing
 routers(app);
 
