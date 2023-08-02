@@ -9,7 +9,7 @@ const postSchema = Joi.object({
   description: Joi.string().max(220).required(),
   price: Joi.number().min(4).required(),
   brand: Joi.string().alphanum().max(20).required(),
-  image: Joi.string().max(50).required(),
+  image: Joi.string().max(200).required(),
   category_id: Joi.number().min(1).required()
 })
 
@@ -18,12 +18,12 @@ const updateSchema = Joi.object({
   description: Joi.string().max(220),
   price: Joi.number().min(4),
   brand: Joi.string().alphanum().max(20),
-  image: Joi.string().max(50),
+  image: Joi.string().max(200),
   category_id: Joi.number().min(1)
 })
 
 const titleSchema = Joi.object({
-  t: Joi.string().required()
+  t: Joi.string().min(2).required()
 })
 
 const rangeSchema = Joi.object({

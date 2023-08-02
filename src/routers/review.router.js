@@ -19,7 +19,11 @@ router.get('/:id', validateData('params', idSchema), async (req,res,next) => {
 
 router.post('/add', isAuthenticate, validateData('body', postSchema), async (req,res,next) => {
   try {
-    const message = await service.setNewReview(req.body);
+    const newComent = {
+      ...req.body,
+      user_id: req.user.sub
+    }
+    const message = await service.setNewReview(newComent);
     res.json(message);
   } catch (error) {
     next(error);

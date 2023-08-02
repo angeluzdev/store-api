@@ -6,7 +6,7 @@ const router = Router();
 
 router.post('/', isAuthenticate, async (req, res, next) => {
   try {
-    const message = await service.insertOrder(req.body, 4);
+    const message = await service.insertOrder(req.body, req.user.sub);
     res.json(message);
   } catch (error) {
     next(error)

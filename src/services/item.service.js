@@ -22,6 +22,9 @@ class Product {
   async getSingleProduct(id) {
     const [product] = await pool.query('select * from products where id=?', [id]);
     if(product.length == 0) throw boom.notFound('Id no match');
+    await this.categoryByItem(product);
+    const [reviews] = await pool.query('select r.id, r.content, r.create_at, u.username from reviews r inner join users u on(r.user_id=u.id) where r.product_id=?', id);
+    product[0].reviews = reviews;
 
     return product;
   }
@@ -70,7 +73,7 @@ class Product {
   }
 
   async updateProducts(data, id) {
-    const [info] = await pool.query('update products set ? wher id=?', [data ,id]);
+    const [info] = await pool.query('update products set ? where id=?', [data ,id]);
 
     if(info.affectedRows == 0) throw boom.notFound('Id inexistente');
 

@@ -4,11 +4,16 @@ const parser = require('cookie-parser');
 const app = express();
 const routers = require('./routers');
 const passport = require('passport');
+const cors = require('cors');
 
 //settings
-app.set('port', 3000);
+app.set('port', process.env.PORT || 3000);
 app.use(express.json());
 app.use(parser());
+app.use(cors({
+  origin: 'http://localhost:4000',
+  credentials: true
+}))
 require('./auth');
 
 app.use( (req, res, next) => passport.authenticate('jwt', {session: false}, (err, user, info, status) => {
@@ -23,9 +28,7 @@ routers(app);
 app.use(isBoomError);
 app.use(errorInternal);
 
-app.listen(app.get('port'), () => {
-  console.log('SERVER INICIALIZADO');
-})
+app.listen(app.get('port'))
 
 
 

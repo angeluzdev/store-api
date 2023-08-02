@@ -3,14 +3,14 @@ const pool = require('../../db');
 
 class User {
   async getAllUsers() {
-    const [users] = await pool.query('select id, username, email, joined from users');
+    const [users] = await pool.query('select id, username, email, joined, role, recovery_token from users');
     return users;
   }
 
   async getSingleUser(id) {
     const [user] = await pool.query('select id, username, email, joined, recovery_token from users where id=?', id);
     if(user.length === 0) throw boom.notFound('Id inexistente');
-    delete user[0].recovery_token;
+
     return user;
   }
 
@@ -26,7 +26,7 @@ class User {
   }
 
   async updateUser(data, id) {
-    const [info] = await pool.query('update from users set ? where id=?', [data, id]);
+    const [info] = await pool.query('update users set ? where id=?', [data, id]);
     return {message: 'success'};
   }
 

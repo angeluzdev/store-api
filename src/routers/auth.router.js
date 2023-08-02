@@ -37,10 +37,9 @@ router.post('/recovery', async (req, res, next) => {
   }
 })
 
-router.get('/change-password', async (req, res, next) => {
+router.post('/change-password', async (req, res, next) => {
   try {
-    const { token } = req.query;
-    const { newPassword } = req.body
+    const { newPassword, token } = req.body
     const message = await service.changePassword(token, newPassword);
     res.json(message);
   } catch (error) {

@@ -3,15 +3,12 @@ const boom = require('@hapi/boom')
 
 class Order {
   async insertOrder(products, userID) {
-    console.log(products);
     const [info] = await pool.query("insert into sale_order (user_id) values(?)", [userID]);
-    console.log(info);
     const productsMap = products.map(p => ([
       info.insertId,
-      p.product_id,
+      p.id,
       p.qty
     ]))
-    console.log(productsMap)
     await pool.query('insert into sale_products (order_id, product_id, qty) values ?', [productsMap]);
     return { message: 'success' }
   }

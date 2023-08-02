@@ -22,21 +22,21 @@ router.get('/', async (req,res, next) => {
   }
 })
 
-router.get('/:id', validateData('params', idSchema), async (req,res,next) => {
-  try {
-    const {id} = req.params;
-    const product = await service.getSingleProduct(id);
-    res.json(product);
-  } catch (error) {
-    next(error);
-  }
-})
-
 router.get('/title/:t', validateData('params', titleSchema), async (req,res, next) => {
   try {
     const {t} = req.params;
     const products = await service.getProductsByTitle(t);
     res.json(products);
+  } catch (error) {
+    next(error);
+  }
+})
+
+router.get('/:id', validateData('params', idSchema), async (req,res,next) => {
+  try {
+    const {id} = req.params;
+    const product = await service.getSingleProduct(id);
+    res.json(product);
   } catch (error) {
     next(error);
   }
