@@ -12,7 +12,6 @@ app.use(express.json());
 app.use(parser());
 app.use(cors({
   origin: 'https://store-front-zio1.onrender.com',
-  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }))
 require('./auth');
