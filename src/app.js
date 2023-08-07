@@ -11,7 +11,7 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.json());
 app.use(parser());
 app.use(cors({
-  origin: 'http://localhost:4000',
+  origin: 'https://store-front-zio1.onrender.com/',
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }))
