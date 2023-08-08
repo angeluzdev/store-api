@@ -7,7 +7,7 @@ const extractorCustom = (req) => {
 }
 
 const JwtStrategy = new Strategy({
-  jwtFromRequest: extractorCustom,
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.SECRET_KEY
 }, (payload, done) => {
   done(null, payload);
