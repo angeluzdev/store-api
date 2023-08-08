@@ -2,9 +2,9 @@
   "name": "back",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/app.js",
+  "main": "./api/app.js",
   "scripts": {
-    "start": "node ./src/app.js",
+    "start": "node ./api/app.js",
     "dev": "nodemon ."
   },
   "keywords": [],
