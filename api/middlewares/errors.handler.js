@@ -7,7 +7,7 @@ function isBoomError(error, req, res, next) {
 }
 
 function errorInternal(error, req, res ,next) {
-  res.status(500).json({ error: error.message});
+  res.status(500).json({ error: error.message, statusCode: 500});
 }
 
 module.exports = {isBoomError, errorInternal};

@@ -21,6 +21,8 @@ class User {
   }
 
   async createNewUser(data) {
+    const [user] = await pool.query('select * from users where email=?', [data.email]);
+    if(user) throw boom.badRequest('Email ya registrado');
     const [info] = await pool.query('insert into users set ?', data);
     return {message: 'success', newId: info.insertId};
   }
