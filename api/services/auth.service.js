@@ -64,7 +64,7 @@ class Auth {
     if(!user) throw boom.unauthorized('Email no existente');
     
     const recoveryToken = jwt.sign({sub: user.id}, process.env.SECRET_KEY, {expiresIn: '30min'});
-    const recoveryLink = 'http://localhost:4000/change-password?token='+recoveryToken;
+    const recoveryLink = 'https://store-front-zio1.onrender.com/change-password?token='+recoveryToken;
     await service.updateUser({recovery_token: recoveryToken}, user.id);
     const mail = {
       from: 'kevinangelosalazar@gmail.com', 
