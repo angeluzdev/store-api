@@ -18,8 +18,7 @@ require('./auth');
 
 app.use( (req, res, next) => passport.authenticate('jwt', {session: false}, (err, user, info, status) => {
   req.user=user;
-  console.log(user);
-  console.log(req.headers.authorization);
+
   next();
 })(req,res,next));
 

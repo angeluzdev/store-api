@@ -6,6 +6,15 @@ const service = new Auth();
 const passport = require('passport');
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  try {
+    const user = req.user ?? false;
+    res.json(user)
+  } catch (error) {
+    next(error);
+  }
+})
+
 router.post('/signin', validateData('body', signInSchema), passport.authenticate('local.signin', {session: false}), async (req,res,next) => {
   try {
     const user = req.user;
