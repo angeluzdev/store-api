@@ -10,10 +10,7 @@ const cors = require('cors');
 app.set('port', process.env.PORT || 3000);
 app.use(express.json());
 app.use(parser());
-app.use(cors({
-  origin: 'https://store-front-zio1.onrender.com',
-  credentials: true
-}))
+app.use(cors())
 require('./auth');
 
 app.use( (req, res, next) => passport.authenticate('jwt', {session: false}, (err, user, info, status) => {
