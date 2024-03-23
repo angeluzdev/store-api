@@ -28,8 +28,8 @@ class Payment {
     const session = await stripe.checkout.sessions.create({
       line_items: await this.getInfoProducts(data),
       mode: 'payment',
-      success_url: 'https://store-front-zio1.onrender.com/success',
-      cancel_url: 'https://store-front-zio1.onrender.com/shopping'
+      success_url: 'https://fake-store-front.azurewebsites.net/success',
+      cancel_url: 'https://fake-store-front.azurewebsites.net/shopping'
     })
     return session;
   }
