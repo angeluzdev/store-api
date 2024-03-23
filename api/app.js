@@ -10,7 +10,10 @@ const cors = require('cors');
 app.set('port', process.env.PORT || 3000);
 app.use(express.json());
 app.use(parser());
-app.use(cors())
+app.use(cors({
+  origin: 'https://fake-store-front.azurewebsites.net',
+  credentials: true
+}))
 require('./auth');
 
 app.use( (req, res, next) => passport.authenticate('jwt', {session: false}, (err, user, info, status) => {
