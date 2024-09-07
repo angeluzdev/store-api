@@ -5,13 +5,15 @@ const app = express();
 const routers = require('./routers');
 const passport = require('passport');
 const cors = require('cors');
+const doten = require('dotenv')
 
 //settings
 app.set('port', process.env.PORT || 3000);
 app.use(express.json());
 app.use(parser());
+doten.config();
 app.use(cors({
-  origin: 'https://fake-store-front.azurewebsites.net',
+  origin: process.env.URL_FRONT,
   credentials: true
 }))
 require('./auth');
